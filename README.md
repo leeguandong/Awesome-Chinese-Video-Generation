@@ -51,7 +51,15 @@ Awesome-Chinese-Video-Generation
 | SkyReels-V2 | 14B | MLLM + Diffusion Forcing | - | 720p | 支持 | T2V, I2V, 无限时长 |
 | SkyReels-V3 | 19B | 统一多模态框架 | - | 720p+ | 支持 | I2V, A2V, V2V |
 | Step-Video-T2V | 30B | DiT | Step-LLM | 720p | 支持 | T2V, TI2V |
+| Step-Video-TI2V | 30B | DiT (T2V 同源) | Step-LLM | 720p | 支持 | TI2V (102 帧) |
 | Goku | - | Rectified Flow Transformer | - | 720p | 支持 | T2V, I2V |
+| Wan2.1-VACE | 1.3B / 14B | DiT (Wan2.1) | umT5 | 720p | 支持 | 统一视频编辑/参考/repaint/inpaint/扩展 |
+| Wan2.2-S2V | 14B | MoE DiT | umT5 | 720p+ | 支持 | 音频驱动 S2V |
+| Wan2.2-Animate | 14B | MoE DiT | umT5 | 720p+ | 支持 | 角色动画 |
+| HunyuanVideo-Avatar | - | MM-DiT | CLIP + LLM | 720p | 支持 | 音频驱动 + 多角色对话 |
+| HY-OmniWeaving | 8.3B (基) | DiT + MLLM | CLIP + LLM | 720p | 支持 | T2V/I2V/插帧/编辑/多参考组合 |
+| Magi-1 / Magi-1.1 | 4.5B / 24B | Block-causal AR DiT | - | 720p | 支持 | T2V/I2V/无限时长流式 |
+| LongCat-Video | 13.6B | DiT | - | 720p / 30fps | 支持 | T2V/I2V/视频续写（分钟级）|
 
 ### 1.2 开源模型
 
@@ -102,6 +110,34 @@ Awesome-Chinese-Video-Generation
 * **Goku**：
   * 简介：Goku由字节跳动与香港大学联合开发，于2025年2月发布。采用Rectified Flow Transformer架构，是一种基于流的视频生成基础模型。支持文本到视频和图像到视频生成，在GenEval上达到0.76分，在DPG-Bench上达到83.65分。代码和权重已开源。
 
+* **Wan2.1-VACE / VACE**：
+  * 地址：https://github.com/ali-vilab/VACE ![](https://img.shields.io/github/stars/ali-vilab/VACE.svg)
+  * 简介：阿里通义实验室开源的统一视频创作与编辑全家桶（ICCV 2025），基于 Wan2.1 DiT 主干扩展，提供 1.3B 与 14B 两个规模。覆盖参考图驱动、重绘（repaint）、inpainting、时空扩展、姿态/深度/重着色等多种视频编辑任务，是首个开源的统一视频编辑模型。
+
+* **HunyuanVideo-Avatar**：
+  * 地址：https://github.com/Tencent-Hunyuan/HunyuanVideo-Avatar ![](https://img.shields.io/github/stars/Tencent-Hunyuan/HunyuanVideo-Avatar.svg)
+  * 简介：腾讯混元于 2025 年 5 月 28 日开源的音频驱动数字人视频模型，采用 MM-DiT 架构。输入参考人像 + 音频，输出最长 14 秒带嘴型同步的对话视频，支持多角色对话场景。是最早开源的中文级别音频驱动视频模型之一。
+
+* **Wan2.2-S2V / Wan2.2-Animate**：
+  * 地址：https://huggingface.co/Wan-AI
+  * 简介：阿里通义于 2025 年 8 月 26 日开源的两个 14B 衍生模型，基于 Wan2.2 MoE DiT 主干。**Wan2.2-S2V**（Speech-to-Video）支持音频驱动生成具备完整身体动作的电影级视频；**Wan2.2-Animate** 专攻角色动画与重定位（character animation & retargeting），可基于参考视频迁移动作。两者共同构成 Wan2.2 在"音频/动作驱动"方向的开源补完。
+
+* **Step-Video-TI2V**：
+  * 地址：https://github.com/stepfun-ai/Step-Video-TI2V ![](https://img.shields.io/github/stars/stepfun-ai/Step-Video-TI2V.svg)
+  * 简介：阶跃星辰于 2025 年 3 月 17 日开源，沿用 Step-Video-T2V 的 30B DiT 主干，专攻文本+图像到视频任务，支持运动控制，最长 102 帧输出，在 VBench-I2V 上一度居首。是 Step-Video 家族的 I2V 旗舰。
+
+* **Magi-1 / Magi-1.1**：
+  * 地址：https://github.com/SandAI-org/MAGI-1 ![](https://img.shields.io/github/stars/SandAI-org/MAGI-1.svg)
+  * 简介：Sand AI（三大）开源的块级因果（block-causal）自回归 Diffusion Transformer，提供 4.5B 与 24B 两规模，Apache 2.0 许可。区别于纯 diffusion 视频模型，Magi 以 chunk-by-chunk 自回归方式生成视频，支持理论上**无限时长**的流式 T2V/I2V 生成，是首个达到顶级质量的 AR 视频模型。2026 年迭代到 Magi-1.1。
+
+* **LongCat-Video（美团）**：
+  * 地址：https://github.com/meituan-longcat/LongCat-Video ![](https://img.shields.io/github/stars/meituan-longcat/LongCat-Video.svg)
+  * 简介：美团于 2025 年 10 月 25 日开源的 13.6B DiT 视频模型，MIT 许可。原生支持长视频预训练（分钟级），提供 T2V / I2V / 视频续写三种模式，720p / 30fps。是首个面向"长视频"原生设计的开源中文视频模型。
+
+* **HY-OmniWeaving**：
+  * 地址：https://github.com/Tencent-Hunyuan/OmniWeaving ![](https://img.shields.io/github/stars/Tencent-Hunyuan/OmniWeaving.svg)
+  * 简介：腾讯混元于 2026 年 4 月 3 日开源（arXiv 同月稍早，Hugging Face 模型 [tencent/HY-OmniWeaving](https://huggingface.co/tencent/HY-OmniWeaving)），基于 HunyuanVideo-1.5（8.3B）拓展。新增 MLLM "thinking mode" 推理模块，支持 T2V / I2V / 关键帧插值 / 视频编辑 / 最多 4 张参考图的自由"文-图-视频"组合。是首个具备多参考组合 + MLLM 推理的混元视频模型。
+
 ### 1.3 闭源模型
 
 * **快手可灵 Kling**：
@@ -110,7 +146,11 @@ Awesome-Chinese-Video-Generation
 
 * **生数科技 Vidu**：
   * 地址：https://www.vidu.com/
-  * 简介：Vidu由生数科技（ShengShu Technology）开发，采用自研的U-ViT架构。从Vidu 1.0发展到Vidu Q3（2026年初），支持文本到视频、图像到视频、口型同步、模板等功能。视频生成速度极快，可在10秒内完成。Vidu Q3支持多镜头叙事。提供API平台（MaaS），支持MCP集成。每个片段最长可达16秒。原生支持中文提示词。
+  * 简介：Vidu由生数科技（ShengShu Technology）开发，采用自研的U-ViT架构。从Vidu 1.0发展到Vidu Q3（2026年初），支持文本到视频、图像到视频、口型同步、模板等功能。视频生成速度极快，可在10秒内完成。Vidu Q3支持多镜头叙事。提供API平台（MaaS），支持MCP集成。每个片段最长可达16秒。原生支持中文提示词。**Vidu Q3 Reference-to-Video**（2026 年 4 月 13 日）在 Q3 之上新增多参考组合工作流——可同时引用主体、环境、服装、道具、风格，配合原生音频长片生成。
+
+* **MiniMax 海螺 Hailuo**：
+  * 地址：https://hailuoai.com/video
+  * 简介：MiniMax 推出的旗舰商业视频模型。从 Hailuo 1.0 / 02 演进到 **Hailuo 2.3**（2025 年 10 月），全面提升运动一致性与表情自然度，并提供 Hailuo 2.3 Fast 低延迟版本。支持 T2V / I2V / Subject-Reference / 镜头控制等能力，原生支持中文。曾长期占据 Artificial Analysis I2V 榜前列。
 
 * **字节即梦 Seedance**：
   * 地址：https://jimeng.jianying.com/
@@ -122,7 +162,11 @@ Awesome-Chinese-Video-Generation
 
 * **阿里通义万相（商业版）**：
   * 地址：https://tongyi.aliyun.com/wanxiang/
-  * 简介：通义万相是阿里云的AI视频生成服务，Wan系列（Wan2.1/2.2/2.5/2.6）是其开源版本。商业云服务提供额外功能和更高质量的输出。Wan2.5增加了原生音视频同步能力，支持1080p 24fps和电影级摄像机控制。Wan2.6（2025年12月发布）是中国首个具备角色扮演能力的AI视频模型，支持多镜头叙事、原生音频生成、视频风格迁移，最长可生成15秒视频。原生支持中文提示词。
+  * 简介：通义万相是阿里云的AI视频生成服务，Wan系列（Wan2.1/2.2/2.5/2.6/2.7）是其开源版本。商业云服务提供额外功能和更高质量的输出。**Wan2.5**（2025 年 10 月）增加了原生音视频同步能力，支持 1080p 24fps 和电影级摄像机控制；**Wan2.6**（2025 年 12 月 17 日）是中国首个具备角色扮演能力的 AI 视频模型，支持多镜头叙事、原生音频生成、视频风格迁移，最长 15 秒；**Wan2.7**（2026 年 3 月）新增首帧控制（first-frame control）、独立的指令式视频编辑分支 Wan2.7-VideoEdit、并把音频生成原生融入主流水线，目前仅 DashScope API 提供。原生支持中文提示词。
+
+* **昆仑万维 SkyReels-V4**：
+  * 地址：https://arxiv.org/html/2602.21818v1
+  * 简介：昆仑万维（Skywork AI）于 2026 年 2 月 24 日发布的 SkyReels 第四代，技术报告版（暂未开放权重）。采用双流 MMDiT 架构：视频与音频分支共享一个 MLLM 文本编码器，首次把"音频生成"作为一等公民放入同一架构，输出 1080p / 32fps / 最长 15 秒同步音视频；2026 年 3 月 19 日登上 Artificial Analysis "T2V-with-Audio" 榜首。是 SkyReels-V2/V3 之后的闭源旗舰，未来或与 V2/V3 一样最终开源。
 
 ## 2. 测评
 
